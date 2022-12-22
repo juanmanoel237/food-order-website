@@ -55,14 +55,23 @@
        //2. Requete SQL pour sauvegarder les données dans la bdd
        $sql = "INSERT INTO tbl_admin SET 
             full_name='$full_name',
-            unsername='$username',
+            username='$username',
             password='$password'
        ";
        //3. Executer la requete et sauvegarder les données
        $connex = mysqli_connect('localhost', 'root', '') or die(mysqli_error()); //Connexion  à la bdd
        $db_select = mysqli_select_db($connex,'food-order') or die(mysqli_error()); //Selection de la bdd
 
+       //Exécution de la requête et Sauvegarde dans la BDD
+       $res = mysqli_query($connex, $sql) or die('Error:' . mysqli_error($connex));
 
-       //$res = mysqli_query($connex, $sql) or die(mysqli_error());
+       //4. Vérifier si (la requête est exécuté) les données sont insérées dans la bdd ou pas et afficher le message correct
+       if($res==TRUE){
+        //Données insérées
+        echo "Données insérées";
+       }else{
+        //Echec
+        echo "Echec d'insertion";
+       }
      }
 ?>
