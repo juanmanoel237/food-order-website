@@ -81,30 +81,35 @@
                 //To upload image we need image name, source path and destination path
                 $image_name = $_FILES['image']['name'];
 
-                //Auto rename our image
-                //Get ewtension of our image (jpg, png, gif,etc)
-                $ext = end(explode('.', $image_name));
-
-                //Rename image
-                $image_name = "Food_Category_" . rand(000, 999) . '.' . $ext; // e.g Food_Category_834.jpg
-
-                $source_path = $_FILES['image']['tmp_name'];
-
-                $destination_path = "../images/category/" . $image_name;
+                //Upload image seulement si l'image est choisie
+                if ($image_name != "") {
 
 
-                //Finally Upload the Image
-                $upload = move_uploaded_file($source_path, $destination_path);
+                    //Auto rename our image
+                    //Get ewtension of our image (jpg, png, gif,etc)
+                    $ext = end(explode('.', $image_name));
 
-                //Check whether the image is uploaded or not
-                //And if the image is not uploaded then we will stop the process and redirect with error message
-                if ($upload == false) {
-                    //SEt message
-                    $_SESSION['upload'] = "<div class='error'>Failed to Upload Image. </div>";
-                    //Redirect to Add CAtegory Page
-                    header('location:' . SITEURL . 'admin/add-category.php');
-                    //STop the Process
-                    die();
+                    //Rename image
+                    $image_name = "Food_Category_" . rand(000, 999) . '.' . $ext; // e.g Food_Category_834.jpg
+
+                    $source_path = $_FILES['image']['tmp_name'];
+
+                    $destination_path = "../images/category/" . $image_name;
+
+
+                    //Finally Upload the Image
+                    $upload = move_uploaded_file($source_path, $destination_path);
+
+                    //Check whether the image is uploaded or not
+                    //And if the image is not uploaded then we will stop the process and redirect with error message
+                    if ($upload == false) {
+                        //SEt message
+                        $_SESSION['upload'] = "<div class='error'>Failed to Upload Image. </div>";
+                        //Redirect to Add CAtegory Page
+                        header('location:' . SITEURL . 'admin/add-category.php');
+                        //STop the Process
+                        die();
+                    }
                 }
             } else {
                 //Don't Upload Image and set the image_name value as blank
