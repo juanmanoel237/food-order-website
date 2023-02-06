@@ -1,4 +1,4 @@
-<?php include('partiels/menu.php'); ?>
+<?php include 'partiels/menu.php'; ?>
 
 <div class="main-content">
     <div class="wrapper">
@@ -27,8 +27,7 @@
                 <tr>
                     <td>Description: </td>
                     <td>
-                        <textarea name="description" cols="30" rows="5"
-                            placeholder="Description of the Food."></textarea>
+                        <textarea name="description" cols="30" rows="5" placeholder="Description of the Food."></textarea>
                     </td>
                 </tr>
 
@@ -72,14 +71,14 @@
 
                             ?>
 
-                            <option value="<?php echo $id; ?>"><?php echo $title; ?></option>
+                                    <option value="<?php echo $id; ?>"><?php echo $title; ?></option>
 
-                            <?php
+                                <?php
                                 }
                             } else {
                                 //WE do not have category
                                 ?>
-                            <option value="0">No Category Found</option>
+                                <option value="0">No Category Found</option>
                             <?php
                             }
 
