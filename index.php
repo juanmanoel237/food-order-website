@@ -1,6 +1,6 @@
 <?php include('partiels-front/menu.php'); ?>
 
-<!-- fOOD sEARCH Section Starts Here -->
+<!-- Section recherche Nourriture -->
 <section class="food-search text-center">
   <div class="container">
 
@@ -11,7 +11,7 @@
 
   </div>
 </section>
-<!-- fOOD sEARCH Section Ends Here -->
+<!-- Fin section recherche nourriture -->
 
 <?php
 if (isset($_SESSION['order'])) {
@@ -20,23 +20,23 @@ if (isset($_SESSION['order'])) {
 }
 ?>
 
-<!-- CAtegories Section Starts Here -->
+<!-- Section Catégories-->
 <section class="categories">
   <div class="container">
     <h2 class="text-center">Explore Foods</h2>
 
     <?php
-    //Create SQL Query to Display CAtegories from Database
+    //Créer une Requête SQL pour Afficher les Catégories dans la BDD
     $sql = "SELECT * FROM tbl_category WHERE active='Yes' AND featured='Yes' LIMIT 3";
-    //Execute the Query
+    //Executer La requête
     $res = mysqli_query($connex, $sql);
-    //Count rows to check whether the category is available or not
+    //Compter les lignes pour voir si la catégorie est disponible
     $count = mysqli_num_rows($res);
 
     if ($count > 0) {
-      //CAtegories Available
+      //Catégorie disponible
       while ($row = mysqli_fetch_assoc($res)) {
-        //Get the Values like id, title, image_name
+        //Get valeurs id, title, image_name
         $id = $row['id'];
         $title = $row['title'];
         $image_name = $row['image_name'];
@@ -45,12 +45,12 @@ if (isset($_SESSION['order'])) {
         <a href="<?php echo SITEURL; ?>category-foods.php?category_id=<?php echo $id; ?>">
           <div class="box-3 float-container">
             <?php
-            //Check whether Image is available or not
+            //Vérifier si l'image est disponible
             if ($image_name == "") {
-              //Display MEssage
+              //Afficher le message
               echo "<div class='error'>Image not Available</div>";
             } else {
-              //Image Available
+              //Image disponible
             ?>
               <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name; ?>" alt="Pizza" class="img-responsive img-curve">
             <?php
@@ -65,7 +65,7 @@ if (isset($_SESSION['order'])) {
     <?php
       }
     } else {
-      //Categories not Available
+      //Categories indisponibles
       echo "<div class='error'>Category not Added.</div>";
     }
     ?>
@@ -74,32 +74,32 @@ if (isset($_SESSION['order'])) {
     <div class="clearfix"></div>
   </div>
 </section>
-<!-- Categories Section Ends Here -->
+<!-- Fin Section Catégories -->
 
 
 
-<!-- fOOD MEnu Section Starts Here -->
+<!-- Section Menu Nourriture -->
 <section class="food-menu">
   <div class="container">
     <h2 class="text-center">Food Menu</h2>
 
     <?php
 
-    //Getting Foods from Database that are active and featured
-    //SQL Query
+    //Récupérer les nourritures qui sont ACTIVE et FEATURED dans la BDD
+    //SQL Requête
     $sql2 = "SELECT * FROM tbl_food WHERE active='Yes' AND featured='Yes' LIMIT 6";
 
-    //Execute the Query
+    //Executer la Requête
     $res2 = mysqli_query($connex, $sql2);
 
-    //Count Rows
+    //Compter les lignes
     $count2 = mysqli_num_rows($res2);
 
-    //CHeck whether food available or not
+    //Vérifier si le nourriture est disponible ou pas
     if ($count2 > 0) {
-      //Food Available
+      //Nourriture disponible
       while ($row = mysqli_fetch_assoc($res2)) {
-        //Get all the values
+        //Gettoutes les valeurs
         $id = $row['id'];
         $title = $row['title'];
         $price = $row['price'];
@@ -110,12 +110,12 @@ if (isset($_SESSION['order'])) {
         <div class="food-menu-box">
           <div class="food-menu-img">
             <?php
-            //Check whether image available or not
+            //Vérifier si l'image est disponible
             if ($image_name == "") {
-              //Image not Available
+              //Image indisponible
               echo "<div class='error'>Image not available.</div>";
             } else {
-              //Image Available
+              //Image Disponible
             ?>
               <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
             <?php
@@ -140,7 +140,7 @@ if (isset($_SESSION['order'])) {
     <?php
       }
     } else {
-      //Food Not Available 
+      //Nourriture indisponible
       echo "<div class='error'>Food not available.</div>";
     }
 
@@ -160,7 +160,7 @@ if (isset($_SESSION['order'])) {
     <a href="#">See All Foods</a>
   </p>
 </section>
-<!-- fOOD Menu Section Ends Here -->
+<!-- Fin Section -->
 
 
 <?php include('partiels-front/footer.php'); ?>

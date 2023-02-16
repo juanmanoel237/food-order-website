@@ -1,20 +1,20 @@
 <?php include('partiels/menu.php'); ?>
 
 <?php
-//CHeck whether id is set or not 
+//Vérifier si l'ID est défini  
 if (isset($_GET['id'])) {
-    //Get all the details
+    //Récupérer tous les détails
     $id = $_GET['id'];
 
-    //SQL Query to Get the Selected Food
+    //Requête SQL pour récupérer la nourriture choisie
     $sql2 = "SELECT * FROM tbl_food WHERE id=$id";
-    //execute the Query
+    //executer la requête
     $res2 = mysqli_query($connex, $sql2);
 
-    //Get the value based on query executed
+    //Récupérer la valeur selon la requête exécutée
     $row2 = mysqli_fetch_assoc($res2);
 
-    //Get the Individual Values of Selected Food
+    //Récupérer les valeurs individuelles de la nourriture sélectionnée
     $title = $row2['title'];
     $description = $row2['description'];
     $price = $row2['price'];
@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
     $featured = $row2['featured'];
     $active = $row2['active'];
 } else {
-    //Redirect to Manage Food
+    //Redirection vers "Manage food"
     header('location:' . SITEURL . 'admin/manage-food.php');
 }
 ?>
@@ -64,10 +64,10 @@ if (isset($_GET['id'])) {
                     <td>
                         <?php
                         if ($current_image == "") {
-                            //Image not Available 
+                            //Image indisponible
                             echo "<div class='error'>Image not Available.</div>";
                         } else {
-                            //Image Available
+                            //Image disponible
                         ?>
                             <img src="<?php echo SITEURL; ?>images/food/<?php echo $current_image; ?>" width="150px">
                         <?php
@@ -89,16 +89,16 @@ if (isset($_GET['id'])) {
                         <select name="category">
 
                             <?php
-                            //Query to Get ACtive Categories
+                            //Requête pour récupérer les Catégories Actives
                             $sql = "SELECT * FROM tbl_category WHERE active='Yes'";
-                            //Execute the Query
+                            //Executer la requête
                             $res = mysqli_query($conn, $sql);
-                            //Count Rows
+                            //Compter les lignes
                             $count = mysqli_num_rows($res);
 
-                            //Check whether category available or not
+                            //Vérifier si la catégorie est dispo
                             if ($count > 0) {
-                                //CAtegory Available
+                                //Catégorie disponible
                                 while ($row = mysqli_fetch_assoc($res)) {
                                     $category_title = $row['title'];
                                     $category_id = $row['id'];
@@ -112,7 +112,7 @@ if (isset($_GET['id'])) {
                             <?php
                                 }
                             } else {
-                                //CAtegory Not Available
+                                //Catégorie indisponible
                                 echo "<option value='0'>Category Not Available.</option>";
                             }
 
@@ -166,7 +166,7 @@ if (isset($_GET['id'])) {
         if (isset($_POST['submit'])) {
             //echo "Button Clicked";
 
-            //1. Get all the details from the form
+            //1. Get tous les détails du formulaire
             $id = $_POST['id'];
             $title = $_POST['title'];
             $description = $_POST['description'];
@@ -177,68 +177,68 @@ if (isset($_GET['id'])) {
             $featured = $_POST['featured'];
             $active = $_POST['active'];
 
-            //2. Upload the image if selected
+            //2. Upload l'image si sélectionnée
 
-            //CHeck whether upload button is clicked or not
+            //vérifier qu'on clique sur le button Upload
             if (isset($_FILES['image']['name'])) {
-                //Upload BUtton Clicked
-                $image_name = $_FILES['image']['name']; //New Image NAme
+                //Button cliqué
+                $image_name = $_FILES['image']['name']; //Nouveau nom d'image
 
-                //CHeck whether th file is available or not
+                //Vérifier si le fichier est disponible ou pas
                 if ($image_name != "") {
-                    //IMage is Available
-                    //A. Uploading New Image
+                    //IMage disponible
+                    //A. Uploa nouvelle image
                     $tmp = explode('.', $image_name);
-                    //REname the Image
-                    $ext = end($tmp); //Gets the extension of the image
+                    //enommer l'image
+                    $ext = end($tmp); //Récupérer l'extension de l'image
 
-                    $image_name = "Food-Name-" . rand(0000, 9999) . '.' . $ext; //THis will be renamed image
+                    $image_name = "Food-Name-" . rand(0000, 9999) . '.' . $ext; //Ceci sera renommé
 
-                    //Get the Source Path and DEstination PAth
+                    //Récupérer la source et la destination
                     $src_path = $_FILES['image']['tmp_name']; //Source Path
                     $dest_path = "../images/food/" . $image_name; //DEstination Path
 
-                    //Upload the image
+                    //Upload l'image
                     $upload = move_uploaded_file($src_path, $dest_path);
 
-                    /// CHeck whether the image is uploaded or not
+                    /// Vérifier si l'image est upload
                     if ($upload == false) {
-                        //FAiled to Upload
+                        //Echec
                         $_SESSION['upload'] = "<div class='error'>Failed to Upload new Image.</div>";
-                        //REdirect to Manage Food 
+                        //REdirection vers Manage-food
                         header('location:' . SITEURL . 'admin/manage-food.php');
-                        //Stop the Process
+                        //Stop le process
                         die();
                     }
-                    //3. Remove the image if new image is uploaded and current image exists
-                    //B. Remove current Image if Available
+                    //3. Retirer l'image si nouvelle image est upload et image actuelle existent
+                    //B. Retirer image actuelle si elle existe
                     if ($current_image != "") {
-                        //Current Image is Available
-                        //REmove the image
+                        //Image actuelle existe
+                        //Retirer l'image
                         $remove_path = "../images/food/" . $current_image;
 
                         $remove = unlink($remove_path);
 
-                        //Check whether the image is removed or not
+                        //Vérifier si l'image est retirée 
                         if ($remove == false) {
-                            //failed to remove current image
+                            //Echec
                             $_SESSION['remove-failed'] = "<div class='error'>Faile to remove current image.</div>";
-                            //redirect to manage food
+                            //redirection vers manage-food
                             header('location:' . SITEURL . 'admin/manage-food.php');
-                            //stop the process
+                            //stop
                             die();
                         }
                     }
                 } else {
-                    $image_name = $current_image; //Default Image when Image is Not Selected
+                    $image_name = $current_image; //Image par défaut si l'image n'est pas selectionnée
                 }
             } else {
-                $image_name = $current_image; //Default Image when Button is not Clicked
+                $image_name = $current_image; //Image par défaut si le button n'est pas cliqué
             }
 
 
 
-            //4. Update the Food in Database
+            //4. Mettre à jour la nourriture dans la base de données
             $sql3 = "UPDATE tbl_food SET 
                     title = '$title',
                     description = '$description',
@@ -250,16 +250,16 @@ if (isset($_GET['id'])) {
                     WHERE id=$id
                 ";
 
-            //Execute the SQL Query
+            //Exécuter la requête
             $res3 = mysqli_query($connex, $sql3);
 
-            //CHeck whether the query is executed or not 
+            //Vérifier si la requête est exécutée
             if ($res3 == true) {
-                //Query Exectued and Food Updated
+                //Requête exécutée
                 $_SESSION['update'] = "<div class='success'>Food Updated Successfully.</div>";
                 header('location:' . SITEURL . 'admin/manage-food.php');
             } else {
-                //Failed to Update Food
+                //Echec
                 $_SESSION['update'] = "<div class='error'>Failed to Update Food.</div>";
                 header('location:' . SITEURL . 'admin/manage-food.php');
             }

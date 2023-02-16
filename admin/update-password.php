@@ -51,73 +51,67 @@
 
 <?php
 
-//CHeck whether the Submit Button is Clicked on Not
+//Vérifier si on clique bien sur le button submit
 if (isset($_POST['submit'])) {
     //echo "CLicked";
 
-    //1. Get the DAta from Form
+    //1. Récupérer les données de la BDD
     $id = $_POST['id'];
     $current_password = md5($_POST['current_password']);
     $new_password = md5($_POST['new_password']);
     $confirm_password = md5($_POST['confirm_password']);
 
 
-    //2. Check whether the user with current ID and Current Password Exists or Not
+    //2. Vérifier si l'utilisateur existe
     $sql = "SELECT * FROM tbl_admin WHERE id=$id AND password='$current_password'";
 
-    //Execute the Query
+    //Exécuter la Requête
     $res = mysqli_query($connex, $sql);
 
     if ($res == true) {
-        //CHeck whether data is available or not
+        //Vérifier si les données sont disponible ou pas
         $count = mysqli_num_rows($res);
 
         if ($count == 1) {
-            //User Exists and Password Can be CHanged
+            //Utilisiteur exist et le MDP peut être modifié
             //echo "User FOund";
 
-            //Check whether the new password and confirm match or not
+            // Vérifier si le nouveau et la confirmation du MDP correspondent
             if ($new_password == $confirm_password) {
-                //Update the Password
+                //Update le MDP
                 $sql2 = "UPDATE tbl_admin SET 
                                 password='$new_password' 
                                 WHERE id=$id
                             ";
 
-                //Execute the Query
+                //Executer la requête
                 $res2 = mysqli_query($connex, $sql2);
 
-                //CHeck whether the query exeuted or not
+                //CVérifier si la requête est éxécutée
                 if ($res2 == true) {
-                    //Display Succes Message
-                    //REdirect to Manage Admin Page with Success Message
+                    //Afficher message de succes
+                    //Redirection à la page admin
                     $_SESSION['change-pwd'] = "<div class='success'>Password Changed Successfully. </div>";
-                    //Redirect the User
                     header('location:' . SITEURL . 'admin/manage-admin.php');
                 } else {
-                    //Display Error Message
-                    //REdirect to Manage Admin Page with Error Message
+                    //Afficher message d'erreur
+                    //Redirection à la page admin avec message d'erreur
                     $_SESSION['change-pwd'] = "<div class='error'>Failed to Change Password. </div>";
-                    //Redirect the User
                     header('location:' . SITEURL . 'admin/manage-admin.php');
                 }
             } else {
-                //REdirect to Manage Admin Page with Error Message
+                //Redirection à la page admin avec message d'erreur
                 $_SESSION['pwd-not-match'] = "<div class='error'>Password Did not Patch. </div>";
-                //Redirect the User
+
                 header('location:' . SITEURL . 'admin/manage-admin.php');
             }
         } else {
-            //User Does not Exist Set Message and REdirect
+            //Utilisateur inexistant
             $_SESSION['user-not-found'] = "<div class='error'>User Not Found. </div>";
-            //Redirect the User
+
             header('location:' . SITEURL . 'admin/manage-admin.php');
         }
     }
-
-    //3. CHeck Whether the New Password and Confirm Password Match or not
-
-    //4. Change PAssword if all above is true
 }
 
 ?>

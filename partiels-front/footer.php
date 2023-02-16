@@ -1,4 +1,4 @@
-<!-- social Section Starts Here -->
+<!-- Reseaux Sociaux -->
 <section class="social">
     <div class="container text-center">
         <ul>
@@ -14,15 +14,15 @@
         </ul>
     </div>
 </section>
-<!-- social Section Ends Here -->
+<!-- Réseaux Sociaux -->
 
-<!-- footer Section Starts Here -->
+<!-- Section footer -->
 <section class="footer">
     <div class="container text-center">
         <p>All rights reserved. Designed By <a href="#">Juan Manoel</a></p>
     </div>
 </section>
-<!-- footer Section Ends Here -->
+<!-- Fin section footer -->
 </body>
 
 </html>

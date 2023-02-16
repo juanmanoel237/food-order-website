@@ -1,14 +1,14 @@
 <?php include('partiels-front/menu.php'); ?>
 
-<!-- fOOD sEARCH Section Starts Here -->
+<!-- Section Recherche Nourriture -->
 <section class="food-search text-center">
   <div class="container">
     <h2>Foods on Your Search <a href="#" class="text-white">"Momo"</a></h2>
   </div>
 </section>
-<!-- fOOD sEARCH Section Ends Here -->
+<!-- Fin Section Recherche Nourriture -->
 
-<!-- fOOD MEnu Section Starts Here -->
+<!-- Section Menu Nourriture -->
 <section class="food-menu">
   <div class="container">
     <h2 class="text-center">Food Menu</h2>
@@ -118,6 +118,6 @@
     <div class="clearfix"></div>
   </div>
 </section>
-<!-- fOOD Menu Section Ends Here -->
+<!-- Fin Section Menu Nourriture -->
 
 <?php include('partiels-front/footer.php'); ?>

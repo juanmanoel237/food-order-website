@@ -51,21 +51,19 @@
                         <select name="category">
 
                             <?php
-                            //Create PHP Code to display categories from Database
-                            //1. CReate SQL to get all active categories from database
+
+                            //1. Requête SQL pour récupérer les catégories actives
                             $sql = "SELECT * FROM tbl_category WHERE active='Yes'";
 
-                            //Executing qUery
+                            //Execution de la requête
                             $res = mysqli_query($connex, $sql);
 
-                            //Count Rows to check whether we have categories or not
+                            //Compter les lignes pour vérifier les catégories disponibles
                             $count = mysqli_num_rows($res);
-
-                            //IF count is greater than zero, we have categories else we donot have categories
                             if ($count > 0) {
-                                //WE have categories
+                                //Catégories disponibles
                                 while ($row = mysqli_fetch_assoc($res)) {
-                                    //get the details of categories
+                                    //Récupérer les détails de la catégorie
                                     $id = $row['id'];
                                     $title = $row['title'];
 
@@ -76,14 +74,14 @@
                                 <?php
                                 }
                             } else {
-                                //WE do not have category
+                                //Catégorie indisponible
                                 ?>
                                 <option value="0">No Category Found</option>
                             <?php
                             }
 
 
-                            //2. Display on Drpopdown
+                            //2. Afficher sur le menu déroulant
                             ?>
 
                         </select>
@@ -119,76 +117,76 @@
 
         <?php
 
-        //CHeck whether the button is clicked or not
+        //Vérifier si on clique sur le button ou pas
         if (isset($_POST['submit'])) {
-            //Add the Food in Database
+            //Ajouter la nourriture à la BDD
             //echo "Clicked";
 
-            //1. Get the DAta from Form
+            //1. Récupérer les données du form
             $title = $_POST['title'];
             $description = $_POST['description'];
             $price = $_POST['price'];
             $category = $_POST['category'];
 
-            //Check whether radion button for featured and active are checked or not
+            //Vérifier si les buttons radios ACTIVES ET FEATURE sont cochés
             if (isset($_POST['featured'])) {
                 $featured = $_POST['featured'];
             } else {
-                $featured = "No"; //SEtting the Default Value
+                $featured = "No"; //Mettre la valeur par défaut
             }
 
             if (isset($_POST['active'])) {
                 $active = $_POST['active'];
             } else {
-                $active = "No"; //Setting Default Value
+                $active = "No"; //Mettre la valeur par défaut
             }
 
-            //2. Upload the Image if selected
-            //Check whether the select image is clicked or not and upload the image only if the image is selected
+            //2. Upload image si selectionnée
+            //Vérifiez si l'image sélectionnée est cliquée ou non et téléchargez l'image uniquement si l'image est sélectionnée
             if (isset($_FILES['image']['name'])) {
-                //Get the details of the selected image
+                //Obtenir les détails de l'image sélectionnée
                 $image_name = $_FILES['image']['name'];
 
-                //Check Whether the Image is Selected or not and upload image only if selected
+                //Vérifiez si l'image est sélectionnée ou non et téléchargez l'image uniquement si elle est sélectionnée
                 if ($image_name != "") {
-                    // Image is SElected
-                    //A. REnamge the Image
-                    //Get the extension of selected image (jpg, png, gif, etc.) "vijay-thapa.jpg" vijay-thapa jpg
+                    // Image selectionnées
+                    //A. Renommer l'image
+                    //Récupérer l'extension (jpg, png, gif, etc.) "vijay-thapa.jpg" vijay-thapa jpg
                     $ext = end(explode('.', $image_name));
 
-                    // Create New Name for Image
+                    // Créer nouveau nom pour l'Image
                     $image_name = "Food-Name-" . rand(0000, 9999) . "." . $ext; //New Image Name May Be "Food-Name-657.jpg"
 
-                    //B. Upload the Image
-                    //Get the Src Path and DEstinaton path
+                    //B. Upload l'image
+                    //Récupérer la source et destination de l'image
 
-                    // Source path is the current location of the image
+                    // Le chemin source est l'emplacement actuel de l'image
                     $src = $_FILES['image']['tmp_name'];
 
-                    //Destination Path for the image to be uploaded
+                    //Chemin de destination pour l'image à télécharger
                     $dst = "../images/food/" . $image_name;
 
-                    //Finally Uppload the food image
+
                     $upload = move_uploaded_file($src, $dst);
 
-                    //check whether image uploaded of not
+                    //Vérifier si l'image est upload ou pas
                     if ($upload == false) {
-                        //Failed to Upload the image
-                        //REdirect to Add Food Page with Error Message
+                        //Echec
+
                         $_SESSION['upload'] = "<div class='error'>Failed to Upload Image.</div>";
                         header('location:' . SITEURL . 'admin/add-food.php');
-                        //STop the process
+
                         die();
                     }
                 }
             } else {
-                $image_name = ""; //SEtting DEfault Value as blank
+                $image_name = ""; //Valeur par défaut vide
             }
 
-            //3. Insert Into Database
+            //3. Inserer dans la base de données
 
-            //Create a SQL Query to Save or Add food
-            // For Numerical we do not need to pass value inside quotes '' But for string value it is compulsory to add quotes ''
+            //Créer une requête SQL pour enregistrer ou ajouter des aliments
+
             $sql2 = "INSERT INTO tbl_food SET 
                     title = '$title',
                     description = '$description',
@@ -199,17 +197,17 @@
                     active = '$active'
                 ";
 
-            //Execute the Query
+            //Executer la requête
             $res2 = mysqli_query($connex, $sql2);
 
-            //CHeck whether data inserted or not
-            //4. Redirect with MEssage to Manage Food page
+            //Vérifier si les données sont insérées
+            //4. Redirection
             if ($res2 == true) {
-                //Data inserted Successfullly
+                //Données insérées avec success
                 $_SESSION['add'] = "<div class='success'>Food Added Successfully.</div>";
                 header('location:' . SITEURL . 'admin/manage-food.php');
             } else {
-                //FAiled to Insert Data
+                //Echec insertion
                 $_SESSION['add'] = "<div class='error'>Failed to Add Food.</div>";
                 header('location:' . SITEURL . 'admin/manage-food.php');
             }

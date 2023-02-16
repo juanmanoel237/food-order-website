@@ -63,15 +63,15 @@
 
             $res = mysqli_query($connex, $sql);
 
-            //count rows
+            //Compter les lignes
             $count = mysqli_num_rows($res);
 
             $sn = 1;
 
-            //Check if we have data in database
+            //Vérifier si on a des données dans la base de données
             if ($count > 0) {
-                //We have data in the database
-                //Get the data and display
+                //Données disponibles
+                //Récupérer et afficher les données
                 while ($row = mysqli_fetch_assoc($res)) {
                     $id = $row['id'];
                     $title = $row['title'];
@@ -87,14 +87,14 @@
 
                 <td>
                     <?php
-                            //Check whether image name is available or not
+                            //Vérifier si le nom de l'image est dispo
                             if ($image_name != "") {
-                                //Display image
+                                //Afficher l'image
                             ?>
                     <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name; ?>" width="100px" alt="">
                     <?php
                             } else {
-                                //Display message
+                                //Afficher message
                                 echo "<div class='error'>Image not Added.</div>";
                             }
                             ?>
@@ -115,8 +115,8 @@
 
                 }
             } else {
-                //We do not have data
-                //We will display the message inside table
+                //On n'a pas de données
+                //On va afficher le méssage dans la table
                 ?>
             <tr>
                 <td colspan="6">

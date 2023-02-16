@@ -9,34 +9,34 @@
 
         <?php
 
-        //Check whether the id is set or not
+        //Vérifier si l'ID est défini ou pas
         if (isset($_GET['id'])) {
-            //Get the ID and all other details
-            //echo "Getting the Data";
+            //Récupérer l'ID et les détails
+
             $id = $_GET['id'];
-            //Create SQL Query to get all other details
+            //Requête SQL
             $sql = "SELECT * FROM tbl_category WHERE id=$id";
 
-            //Execute the Query
+            //Exécuter la requête
             $res = mysqli_query($connex, $sql);
 
-            //Count the Rows to check whether the id is valid or not
+            //Compter les lignes pour vérifier que l'id est valid ou pas
             $count = mysqli_num_rows($res);
 
             if ($count == 1) {
-                //Get all the data
+                //Récupérer les Données
                 $row = mysqli_fetch_assoc($res);
                 $title = $row['title'];
                 $current_image = $row['image_name'];
                 $featured = $row['featured'];
                 $active = $row['active'];
             } else {
-                //redirect to manage category with session message
+                //Redirection vers manage catégories
                 $_SESSION['no-category-found'] = "<div class='error'>Category not Found.</div>";
                 header('location:' . SITEURL . 'admin/manage-category.php');
             }
         } else {
-            //redirect to Manage CAtegory
+
             header('location:' . SITEURL . 'admin/manage-category.php');
         }
 
@@ -57,12 +57,12 @@
                     <td>
                         <?php
                         if ($current_image != "") {
-                            //Display the Image
+                            //Afficher l'image
                         ?>
-                        <img src="<?php echo SITEURL; ?>images/category/<?php echo $current_image; ?>" width="150px">
+                            <img src="<?php echo SITEURL; ?>images/category/<?php echo $current_image; ?>" width="150px">
                         <?php
                         } else {
-                            //Display Message
+                            //AFFICHER LE MESSAGE
                             echo "<div class='error'>Image Not Added.</div>";
                         }
                         ?>
@@ -117,31 +117,29 @@
         <?php
 
         if (isset($_POST['submit'])) {
-            //echo "Clicked";
-            //1. Get all the values from our form
+            //1. Récupérer les valeurs du formulaire
             $id = $_POST['id'];
             $title = $_POST['title'];
             $current_image = $_POST['current_image'];
             $featured = $_POST['featured'];
             $active = $_POST['active'];
 
-            //2. Updating New Image if selected
-            //Check whether the image is selected or not
+            //2. Mettre à jour nouvel image si elle est selectionnée
+            //Vérifier si nouvelle image est selectionnée
             if (isset($_FILES['image']['name'])) {
-                //Get the Image Details
+                //Récupérer les détails de l'image
                 $image_name = $_FILES['image']['name'];
 
-                //Check whether the image is available or not
+                //Vérifier si l'image est disponible ou pas
                 if ($image_name != "") {
-                    //Image Available
+                    //Image dispo
 
-                    //A. UPload the New Image
-
-                    //Auto Rename our Image
-                    //Get the Extension of our image (jpg, png, gif, etc) e.g. "specialfood1.jpg"
+                    //A. UPload nouvelle image
+                    //Auto renommer l'image
+                    //Récupére l'extension de notre image (jpg, png, gif, etc) e.g. "specialfood1.jpg"
                     $ext = end(explode('.', $image_name));
 
-                    //Rename the Image
+                    //Renommer l'image
                     $image_name = "Food_Category_" . rand(000, 999) . '.' . $ext; // e.g. Food_Category_834.jpg
 
 
@@ -149,28 +147,28 @@
 
                     $destination_path = "../images/category/" . $image_name;
 
-                    //Finally Upload the Image
+                    //Upload l'image
                     $upload = move_uploaded_file($source_path, $destination_path);
 
-                    //Check whether the image is uploaded or not
-                    //And if the image is not uploaded then we will stop the process and redirect with error message
+                    //Vérifier si l'image est upload
+
                     if ($upload == false) {
-                        //SEt message
+
                         $_SESSION['upload'] = "<div class='error'>Failed to Upload Image. </div>";
-                        //Redirect to Add CAtegory Page
+
                         header('location:' . SITEURL . 'admin/manage-category.php');
-                        //STop the Process
+
                         die();
                     }
 
-                    //B. Remove the Current Image if available
+                    //B. Retirer l'image actuelle si disponible
                     if ($current_image != "") {
                         $remove_path = "../images/category/" . $current_image;
 
                         $remove = unlink($remove_path);
 
-                        //CHeck whether the image is removed or not
-                        //If failed to remove then display message and stop the processs
+                        //Vérifier si l'image est retirée
+                        //Si echec
                         if ($remove == false) {
                             //Failed to remove image
                             $_SESSION['failed-remove'] = "<div class='error'>Failed to remove current Image.</div>";
@@ -185,7 +183,7 @@
                 $image_name = $current_image;
             }
 
-            //3. Update the Database
+            //3. Update la base de données
             $sql2 = "UPDATE tbl_category SET 
                     title = '$title',
                     image_name = '$image_name',
@@ -194,17 +192,17 @@
                     WHERE id=$id
                 ";
 
-            //Execute the Query
+            //Executer la requête
             $res2 = mysqli_query($connex, $sql2);
 
-            //4. REdirect to Manage Category with MEssage
-            //CHeck whether executed or not
+            //4. Redirection vers manage catégories avec message
+            //Vérifier si requête exécutée
             if ($res2 == true) {
-                //Category Updated
+                //Categorie mise à jour
                 $_SESSION['update'] = "<div class='success'>Category Updated Successfully.</div>";
                 header('location:' . SITEURL . 'admin/manage-category.php');
             } else {
-                //failed to update category
+
                 $_SESSION['update'] = "<div class='error'>Failed to Update Category.</div>";
                 header('location:' . SITEURL . 'admin/manage-category.php');
             }

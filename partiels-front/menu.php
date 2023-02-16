@@ -4,16 +4,15 @@
 
 <head>
     <meta charset="UTF-8" />
-    <!-- Important to make website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restaurant Website</title>
 
-    <!-- Link our CSS file -->
+    <!-- Lien vers fichier css -->
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <!-- Navbar Section Starts Here -->
+    <!-- Section Navbar -->
     <section class="navbar">
         <div class="container">
             <div class="logo">

@@ -16,7 +16,7 @@
 
         ?>
         <br><br>
-        <!-- Add CAtegory Form Starts -->
+        <!-- Formulaire-->
         <form action="" method="POST" enctype="multipart/form-data">
             <table class="tbl-30">
                 <tr>
@@ -52,20 +52,20 @@
                 </tr>
             </table>
         </form>
-        <!-- Add CAtegory Form Ends -->
+        <!-- fin  -->
         <?php
 
-        //CHeck whether the Submit Button is Clicked or Not
+        //VÉRIFIEZ si le bouton Soumettre est cliqué ou non
         if (isset($_POST['submit'])) {
             //echo "Clicked";
-            //1. Get the Value from CAtegory Form
+            //1. Obtenir la valeur du formulaire de catégorie
             $title = $_POST['title'];
-            //For Radio input, we need to check whether the button is selected or not
+            //pour l'entrée Radio, nous devons vérifier si le bouton est sélectionné ou non
             if (isset($_POST['featured'])) {
-                //Get the VAlue from form
+                //Obtenir la valeur du formulaire
                 $featured = $_POST['featured'];
             } else {
-                //SEt the Default VAlue
+                //Définir la valeur par défaut
                 $featured = "No";
             }
             if (isset($_POST['active'])) {
@@ -73,20 +73,19 @@
             } else {
                 $active = "No";
             }
-            //Check whether the image is selected or not and set the value for image name accoridingly
-            //print_r($_FILES['image']);
-            //die();//Break the Code Here
+            //Vérifiez si l'image est sélectionnée ou non et définissez la valeur du nom de l'image en conséquence
+
             if (isset($_FILES['image']['name'])) {
-                //Upload the Image
-                //To upload image we need image name, source path and destination path
+                //Télécharger l'image
+                //Pour télécharger l'image, nous avons besoin du nom de l'image, du chemin source et du chemin de destination
                 $image_name = $_FILES['image']['name'];
 
                 //Upload image seulement si l'image est choisie
                 if ($image_name != "") {
 
 
-                    //Auto rename our image
-                    //Get ewtension of our image (jpg, png, gif,etc)
+                    //Renommer automatiquement notre image
+                    //Obtenir l'extension de notre image (jpg, png, gif,etc)
                     $ext = end(explode('.', $image_name));
 
                     //Rename image
@@ -97,45 +96,45 @@
                     $destination_path = "../images/category/" . $image_name;
 
 
-                    //Finally Upload the Image
+                    
                     $upload = move_uploaded_file($source_path, $destination_path);
 
-                    //Check whether the image is uploaded or not
-                    //And if the image is not uploaded then we will stop the process and redirect with error message
+                    //Vérifier si l'image est téléchargée ou non
+                    // Et si l'image n'est pas téléchargée, nous arrêterons le processus et redirigerons avec un message d'erreur
                     if ($upload == false) {
-                        //SEt message
+                        
                         $_SESSION['upload'] = "<div class='error'>Failed to Upload Image. </div>";
-                        //Redirect to Add CAtegory Page
+                       
                         header('location:' . SITEURL . 'admin/add-category.php');
-                        //STop the Process
+                       
                         die();
                     }
                 }
             } else {
-                //Don't Upload Image and set the image_name value as blank
+                // Ne pas télécharger l'image et définir la valeur image_name comme vide
                 $image_name = "";
             }
 
-            //2. Create SQL Query to Insert CAtegory into Database
+            //2. Créer une requête SQL pour insérer une catégorie dans la base de données
             $sql = "INSERT INTO tbl_category SET 
                     title='$title',
                     image_name='$image_name',
                     featured='$featured',
                     active='$active'
                 ";
-            //3. Execute the Query and Save in Database
+            //3. Exécuter la requête et enregistrer dans la base de données
             $res = mysqli_query($connex, $sql);
 
-            //4. Check whether the query executed or not and data added or not
+            //4. Vérifier si la requête s'est exécutée ou non et si les données ont été ajoutées ou non
             if ($res == true) {
-                //Query Executed and Category Added
+                
                 $_SESSION['add'] = "<div class='success'>Category Added Successfully.</div>";
-                //Redirect to Manage Category Page
+                
                 header('location:' . SITEURL . 'admin/manage-category.php');
             } else {
-                //Failed to Add CAtegory
+                
                 $_SESSION['add'] = "<div class='error'>Failed to Add Category.</div>";
-                //Redirect to Manage Category Page
+                
                 header('location:' . SITEURL . 'admin/add-category.php');
             }
         }

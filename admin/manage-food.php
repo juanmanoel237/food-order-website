@@ -75,29 +75,31 @@
                     $featured = $row['featured'];
                     $active = $row['active'];
             ?>
-                    <tr>
-                        <td><?php echo $sn++; ?></td>
-                        <td><?php echo $title; ?></td>
-                        <td><?php echo $price; ?></td>
-                        <td> <?php
-                                //CHeck whether we have image or not
+            <tr>
+                <td><?php echo $sn++; ?></td>
+                <td><?php echo $title; ?></td>
+                <td><?php echo $price; ?></td>
+                <td> <?php
+                                //Vérifier si on a l'image ou pas
                                 if ($image_name == "") {
-                                    //WE do not have image, DIslpay Error Message
+                                    //Image indisponible afficher message d'erreur
                                     echo "<div class='error'>Image not Added.</div>";
                                 } else {
-                                    //WE Have Image, Display Image
+                                    //
                                 ?>
-                                <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" width="100px">
-                            <?php
+                    <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" width="100px">
+                    <?php
                                 }
                             ?>
-                        <td><?php echo $featured; ?></td>
-                        <td><?php echo $active; ?></td>
-                        <td>
-                            <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-secondary">Update Food</a>
-                            <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>" class="btn-danger">Delete Food</a>
-                        </td>
-                    </tr>
+                <td><?php echo $featured; ?></td>
+                <td><?php echo $active; ?></td>
+                <td>
+                    <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>"
+                        class="btn-secondary">Update Food</a>
+                    <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>"
+                        class="btn-danger">Delete Food</a>
+                </td>
+            </tr>
 
 
             <?php

@@ -1,6 +1,6 @@
 <?php include('partiels-front/menu.php'); ?>
 
-<!-- fOOD sEARCH Section Starts Here -->
+<!-- Section Recherche Nourriture -->
 <section class="food-search text-center">
   <div class="container">
     <form action="food-search.html" method="POST">
@@ -9,9 +9,9 @@
     </form>
   </div>
 </section>
-<!-- fOOD sEARCH Section Ends Here -->
+<!-- fin Section Recherche Nourriture -->
 
-<!-- fOOD MEnu Section Starts Here -->
+<!-- Section Menu Nourriture -->
 <section class="food-menu">
   <div class="container">
     <h2 class="text-center">Food Menu</h2>
@@ -80,7 +80,8 @@
         </p>
         <br />
 
-        <a href="#" class="btn btn-primary">Order Now</a>
+        <a href="<?php echo SITEURL; ?>order.php?food_id=<?php echo $id; ?>" class="btn btn-primary">Order
+          Now</a>
       </div>
     </div>
 
@@ -121,6 +122,6 @@
     <div class="clearfix"></div>
   </div>
 </section>
-<!-- fOOD Menu Section Ends Here -->
+<!-- Fin Section Menu Nourriture -->
 
 <?php include('partiels-front/footer.php'); ?>
