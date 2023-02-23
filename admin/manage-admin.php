@@ -49,7 +49,6 @@ include 'partiels/menu.php';
                 <th>Actions</th>
             </tr>
 
-
             <?php
             // Requête SQL pour récupérer les admins
             $sql = "SELECT * FROM tbl_admin";
@@ -94,8 +93,6 @@ include 'partiels/menu.php';
             </tr>
 
             <?php
-
-
 
                     }
                 } else {

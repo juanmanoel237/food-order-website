@@ -87,7 +87,7 @@ if (isset($_POST['submit'])) {
                 //Executer la requête
                 $res2 = mysqli_query($connex, $sql2);
 
-                //CVérifier si la requête est éxécutée
+                //Vérifier si la requête est éxécutée
                 if ($res2 == true) {
                     //Afficher message de succes
                     //Redirection à la page admin
@@ -101,7 +101,7 @@ if (isset($_POST['submit'])) {
                 }
             } else {
                 //Redirection à la page admin avec message d'erreur
-                $_SESSION['pwd-not-match'] = "<div class='error'>Password Did not Patch. </div>";
+                $_SESSION['pwd-not-match'] = "<div class='error'>Password Did not Match. </div>";
 
                 header('location:' . SITEURL . 'admin/manage-admin.php');
             }

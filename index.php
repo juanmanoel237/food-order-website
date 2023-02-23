@@ -1,31 +1,31 @@
-<?php include('partiels-front/menu.php'); ?>
+ <?php include('partiels-front/menu.php'); ?>
 
-<!-- Section recherche Nourriture -->
-<section class="food-search text-center">
-  <div class="container">
+ <!-- Section recherche Nourriture -->
+ <section class="food-search text-center">
+     <div class="container">
 
-    <form action="<?php echo SITEURL; ?>food-search.php" method="POST">
-      <input type="search" name="search" placeholder="Search for Food.." required>
-      <input type="submit" name="submit" value="Search" class="btn btn-primary">
-    </form>
+         <form action="<?php echo SITEURL; ?>food-search.php" method="POST">
+             <input type="search" name="search" placeholder="Search for Food.." required>
+             <input type="submit" name="submit" value="Search" class="btn btn-primary">
+         </form>
 
-  </div>
-</section>
-<!-- Fin section recherche nourriture -->
+     </div>
+ </section>
+ <!-- Fin section recherche nourriture -->
 
-<?php
+ <?php
 if (isset($_SESSION['order'])) {
   echo $_SESSION['order'];
   unset($_SESSION['order']);
 }
 ?>
 
-<!-- Section Catégories-->
-<section class="categories">
-  <div class="container">
-    <h2 class="text-center">Explore Foods</h2>
+ <!-- Section Catégories-->
+ <section class="categories">
+     <div class="container">
+         <h2 class="text-center">Explore Foods</h2>
 
-    <?php
+         <?php
     //Créer une Requête SQL pour Afficher les Catégories dans la BDD
     $sql = "SELECT * FROM tbl_category WHERE active='Yes' AND featured='Yes' LIMIT 3";
     //Executer La requête
@@ -42,9 +42,9 @@ if (isset($_SESSION['order'])) {
         $image_name = $row['image_name'];
     ?>
 
-        <a href="<?php echo SITEURL; ?>category-foods.php?category_id=<?php echo $id; ?>">
-          <div class="box-3 float-container">
-            <?php
+         <a href="<?php echo SITEURL; ?>category-foods.php?category_id=<?php echo $id; ?>">
+             <div class="box-3 float-container">
+                 <?php
             //Vérifier si l'image est disponible
             if ($image_name == "") {
               //Afficher le message
@@ -52,38 +52,34 @@ if (isset($_SESSION['order'])) {
             } else {
               //Image disponible
             ?>
-              <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name; ?>" alt="Pizza" class="img-responsive img-curve">
-            <?php
+                 <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name; ?>" alt="Pizza"
+                     class="img-responsive img-curve">
+                 <?php
             }
             ?>
 
+                 <h3 class="float-text text-white"><?php echo $title; ?></h3>
+             </div>
+         </a>
 
-            <h3 class="float-text text-white"><?php echo $title; ?></h3>
-          </div>
-        </a>
-
-    <?php
+         <?php
       }
     } else {
       //Categories indisponibles
       echo "<div class='error'>Category not Added.</div>";
     }
     ?>
+         <div class="clearfix"></div>
+     </div>
+ </section>
+ <!-- Fin Section Catégories -->
 
+ <!-- Section Menu Nourriture -->
+ <section class="food-menu">
+     <div class="container">
+         <h2 class="text-center">Food Menu</h2>
 
-    <div class="clearfix"></div>
-  </div>
-</section>
-<!-- Fin Section Catégories -->
-
-
-
-<!-- Section Menu Nourriture -->
-<section class="food-menu">
-  <div class="container">
-    <h2 class="text-center">Food Menu</h2>
-
-    <?php
+         <?php
 
     //Récupérer les nourritures qui sont ACTIVE et FEATURED dans la BDD
     //SQL Requête
@@ -107,9 +103,9 @@ if (isset($_SESSION['order'])) {
         $image_name = $row['image_name'];
     ?>
 
-        <div class="food-menu-box">
-          <div class="food-menu-img">
-            <?php
+         <div class="food-menu-box">
+             <div class="food-menu-img">
+                 <?php
             //Vérifier si l'image est disponible
             if ($image_name == "") {
               //Image indisponible
@@ -117,27 +113,28 @@ if (isset($_SESSION['order'])) {
             } else {
               //Image Disponible
             ?>
-              <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-            <?php
+                 <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" alt="Chicke Hawain Pizza"
+                     class="img-responsive img-curve">
+                 <?php
             }
             ?>
 
-          </div>
+             </div>
 
-          <div class="food-menu-desc">
-            <h4><?php echo $title; ?></h4>
-            <p class="food-price">$<?php echo $price; ?></p>
-            <p class="food-detail">
-              <?php echo $description; ?>
-            </p>
-            <br>
+             <div class="food-menu-desc">
+                 <h4><?php echo $title; ?></h4>
+                 <p class="food-price">$<?php echo $price; ?></p>
+                 <p class="food-detail">
+                     <?php echo $description; ?>
+                 </p>
+                 <br>
 
-            <a href="<?php echo SITEURL; ?>order.php?food_id=<?php echo $id; ?>" class="btn btn-primary">Order
-              Now</a>
-          </div>
-        </div>
+                 <a href="<?php echo SITEURL; ?>order.php?food_id=<?php echo $id; ?>" class="btn btn-primary">Order
+                     Now</a>
+             </div>
+         </div>
 
-    <?php
+         <?php
       }
     } else {
       //Nourriture indisponible
@@ -146,21 +143,15 @@ if (isset($_SESSION['order'])) {
 
     ?>
 
+         <div class="clearfix"></div>
+
+     </div>
+
+     <p class="text-center">
+         <a href="#">See All Foods</a>
+     </p>
+ </section>
+ <!-- Fin Section -->
 
 
-
-
-    <div class="clearfix"></div>
-
-
-
-  </div>
-
-  <p class="text-center">
-    <a href="#">See All Foods</a>
-  </p>
-</section>
-<!-- Fin Section -->
-
-
-<?php include('partiels-front/footer.php'); ?>
+ <?php include('partiels-front/footer.php'); ?>

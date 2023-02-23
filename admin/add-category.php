@@ -96,17 +96,17 @@
                     $destination_path = "../images/category/" . $image_name;
 
 
-                    
+
                     $upload = move_uploaded_file($source_path, $destination_path);
 
                     //Vérifier si l'image est téléchargée ou non
                     // Et si l'image n'est pas téléchargée, nous arrêterons le processus et redirigerons avec un message d'erreur
                     if ($upload == false) {
-                        
+
                         $_SESSION['upload'] = "<div class='error'>Failed to Upload Image. </div>";
-                       
+
                         header('location:' . SITEURL . 'admin/add-category.php');
-                       
+
                         die();
                     }
                 }
@@ -127,14 +127,14 @@
 
             //4. Vérifier si la requête s'est exécutée ou non et si les données ont été ajoutées ou non
             if ($res == true) {
-                
+
                 $_SESSION['add'] = "<div class='success'>Category Added Successfully.</div>";
-                
+
                 header('location:' . SITEURL . 'admin/manage-category.php');
             } else {
-                
+
                 $_SESSION['add'] = "<div class='error'>Failed to Add Category.</div>";
-                
+
                 header('location:' . SITEURL . 'admin/add-category.php');
             }
         }

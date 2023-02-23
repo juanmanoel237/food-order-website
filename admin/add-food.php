@@ -27,7 +27,8 @@
                 <tr>
                     <td>Description: </td>
                     <td>
-                        <textarea name="description" cols="30" rows="5" placeholder="Description of the Food."></textarea>
+                        <textarea name="description" cols="30" rows="5"
+                            placeholder="Description of the Food."></textarea>
                     </td>
                 </tr>
 
@@ -69,14 +70,14 @@
 
                             ?>
 
-                                    <option value="<?php echo $id; ?>"><?php echo $title; ?></option>
+                            <option value="<?php echo $id; ?>"><?php echo $title; ?></option>
 
-                                <?php
+                            <?php
                                 }
                             } else {
                                 //Catégorie indisponible
                                 ?>
-                                <option value="0">No Category Found</option>
+                            <option value="0">No Category Found</option>
                             <?php
                             }
 
@@ -151,11 +152,11 @@
                 if ($image_name != "") {
                     // Image selectionnées
                     //A. Renommer l'image
-                    //Récupérer l'extension (jpg, png, gif, etc.) "vijay-thapa.jpg" vijay-thapa jpg
+                    //Récupérer l'extension (jpg, png, gif, etc.) 
                     $ext = end(explode('.', $image_name));
 
                     // Créer nouveau nom pour l'Image
-                    $image_name = "Food-Name-" . rand(0000, 9999) . "." . $ext; //New Image Name May Be "Food-Name-657.jpg"
+                    $image_name = "Food-Name-" . rand(0000, 9999) . "." . $ext; //"Food-Name-657.jpg"
 
                     //B. Upload l'image
                     //Récupérer la source et destination de l'image

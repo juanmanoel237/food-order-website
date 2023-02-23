@@ -112,7 +112,6 @@
 
             <?php
 
-
                 }
             } else {
                 //On n'a pas de données
@@ -129,9 +128,6 @@
             }
 
             ?>
-
-
-
 
         </table>
     </div>

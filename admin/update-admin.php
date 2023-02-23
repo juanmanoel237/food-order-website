@@ -33,8 +33,6 @@
                 header('location:' . SITEURL . 'admin/manage-admin.php');
             }
         }
-
-
         ?>
 
         <form action="" method="post">

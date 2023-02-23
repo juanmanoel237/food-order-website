@@ -78,16 +78,16 @@ if (isset($_POST['submit'])) {
 
         //Données insérées
         //echo "Données insérées";
-        //Create a session Variable to display message
+        //Créer une variable de session pour afficher le message
         $_SESSION['add'] = "<div class='success'>Admin Added Successfully</div>";
-        //Redirect Page To manage Admin
+        //Redirection vers la page Admin
         header("location:" . SITEURL . 'admin/manage-admin.php');
     } else {
         //Echec
         //echo "Echec d'insertion";
-        //Create a session Variable to display message
+        //Créer une variable de session pour afficher le message
         $_SESSION['add'] = "<div class='error'>Failed to add Admin</div>";
-        //Redirect Page To Add Admin
+        //Redirection
         header("location:" . SITEURL . 'admin/add-admin.php');
     }
 }

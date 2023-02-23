@@ -5,8 +5,6 @@
         <h1>Update Category</h1>
 
         <br><br>
-
-
         <?php
 
         //Vérifier si l'ID est défini ou pas
@@ -59,7 +57,7 @@
                         if ($current_image != "") {
                             //Afficher l'image
                         ?>
-                            <img src="<?php echo SITEURL; ?>images/category/<?php echo $current_image; ?>" width="150px">
+                        <img src="<?php echo SITEURL; ?>images/category/<?php echo $current_image; ?>" width="150px">
                         <?php
                         } else {
                             //AFFICHER LE MESSAGE

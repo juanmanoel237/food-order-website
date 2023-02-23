@@ -5,7 +5,7 @@ include('../config/constants.php');
 
 //echo "Delete Food Page";
 
-if (isset($_GET['id']) && isset($_GET['image_name'])) //Either use '&&' or 'AND'
+if (isset($_GET['id']) && isset($_GET['image_name'])) //Utiliser '&&' ou 'AND'
 {
     //Process pour supprimer
 

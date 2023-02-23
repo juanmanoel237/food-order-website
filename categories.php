@@ -23,24 +23,23 @@
                 $image_name = $row['image_name'];
         ?>
 
-                <a href="category-foods.html">
-                    <div class="box-3 float-container">
-                        <?php
+        <a href="category-foods.html">
+            <div class="box-3 float-container">
+                <?php
                         if ($image_name == "") {
                             echo "<div class='error'>Image not found</div>";
                         } else {
                         ?>
-                            <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name; ?>" alt="Pizza" class="img-responsive img-curve" />
-                        <?php
+                <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name; ?>" alt="Pizza"
+                    class="img-responsive img-curve" />
+                <?php
 
                         }
                         ?>
 
-
-                        <h3 class="float-text text-white"><?php echo $title ?></h3>
-                    </div>
-                </a>
-
+                <h3 class="float-text text-white"><?php echo $title ?></h3>
+            </div>
+        </a>
 
         <?php
             }
@@ -49,12 +48,8 @@
         }
         ?>
 
-
-
-
         <div class="clearfix"></div>
     </div>
 </section>
 <!-- Fin Section Categories -->
-
 <?php include('partiels-front/footer.php'); ?>
